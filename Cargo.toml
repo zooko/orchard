@@ -47,6 +47,9 @@ incrementalmerkletree = "0.8.1"
 zcash_spec = "0.2.1"
 zip32 = { version = "0.2.0", default-features = false }
 visibility = "0.1.1"
+smalloc = { version = "7.0.1", path = "../smalloc-7.0.1/smalloc", optional = true }
+# smalloc = { version = "6.0.3", path = "../smalloc-6.0.3/smalloc", optional = true }
+ctor = { version = "0.2", optional = true }
 
 # Circuit
 halo2_gadgets = { version = "0.4", optional = true, default-features = false }
@@ -89,6 +92,7 @@ unstable-frost = []
 multicore = ["halo2_proofs?/multicore"]
 dev-graph = ["halo2_proofs?/dev-graph", "image", "plotters"]
 test-dependencies = ["proptest", "rand/std"]
+smalloc = ["dep:smalloc", "ctor"]
 
 [[bench]]
 name = "note_decryption"

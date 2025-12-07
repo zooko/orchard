@@ -23,6 +23,9 @@ extern crate alloc;
 #[cfg(feature = "std")]
 extern crate std;
 
+#[cfg(feature = "smalloc")]
+mod smalloc_init;
+
 use alloc::vec::Vec;
 
 mod action;
