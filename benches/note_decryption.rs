@@ -1,4 +1,4 @@
-use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
+use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput, SamplingMode};
 use orchard::{
     builder::{Builder, BundleType},
     circuit::ProvingKey,
@@ -66,6 +66,7 @@ fn bench_note_decryption(c: &mut Criterion) {
 
     let compact = {
         let mut group = c.benchmark_group("note-decryption");
+        group.sampling_mode(SamplingMode::Flat);
         group.throughput(Throughput::Elements(1));
 
         group.bench_function("valid", |b| {
@@ -88,6 +89,7 @@ fn bench_note_decryption(c: &mut Criterion) {
 
     {
         let mut group = c.benchmark_group("compact-note-decryption");
+        group.sampling_mode(SamplingMode::Flat);
         group.throughput(Throughput::Elements(invalid_ivks.len() as u64));
         group.bench_function("invalid", |b| {
             b.iter(|| {
@@ -115,6 +117,7 @@ fn bench_note_decryption(c: &mut Criterion) {
             .collect();
 
         let mut group = c.benchmark_group("batch-note-decryption");
+        group.sampling_mode(SamplingMode::Flat);
 
         for size in [10, 50, 100] {
             group.throughput(Throughput::Elements((ivks * size) as u64));

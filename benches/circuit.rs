@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate criterion;
 
-use criterion::{BenchmarkId, Criterion};
+use criterion::{BenchmarkId, Criterion, SamplingMode};
 
 #[cfg(unix)]
 use pprof::criterion::{Output, PProfProfiler};
@@ -46,6 +46,7 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     {
         let mut group = c.benchmark_group("proving");
+        group.sampling_mode(SamplingMode::Flat);
         group.sample_size(10);
         for num_recipients in recipients_range.clone() {
             let (bundle, instances) = create_bundle(num_recipients);
@@ -62,6 +63,7 @@ fn criterion_benchmark(c: &mut Criterion) {
 
     {
         let mut group = c.benchmark_group("verifying");
+        group.sampling_mode(SamplingMode::Flat);
         for num_recipients in recipients_range {
             let (bundle, instances) = create_bundle(num_recipients);
             let bundle = bundle
