@@ -90,6 +90,7 @@ fn bench_note_decryption(c: &mut Criterion) {
     {
         let mut group = c.benchmark_group("compact-note-decryption");
         group.sampling_mode(SamplingMode::Flat);
+        group.sample_size(40);
         group.throughput(Throughput::Elements(invalid_ivks.len() as u64));
         group.bench_function("invalid", |b| {
             b.iter(|| {
